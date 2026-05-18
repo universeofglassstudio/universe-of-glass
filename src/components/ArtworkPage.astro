@@ -1,0 +1,114 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Header from './Header.astro';
+import ImageCarousel from './ImageCarousel.astro';
+import { t, type Lang, localizePath } from '../i18n/translations';
+
+export interface Props {
+  artwork: CollectionEntry<'artworks'>;
+  lang: Lang;
+}
+
+const { artwork, lang } = Astro.props;
+const ui = t[lang];
+const data = artwork.data;
+
+const title = lang === 'en' ? data.title_en : data.title_ro;
+const desc = lang === 'en' ? data.desc_en : data.desc_ro;
+const statusLabel = ui[data.status];
+const canonicalPath = `/gallery/${artwork.slug}`;
+
+const statusBadgeClass = data.status === 'available'
+  ? 'bg-glassGreen text-baseDark'
+  : 'border border-warmCream/30 text-warmCream/70';
+
+const availabilityMap = {
+  available: 'https://schema.org/InStock',
+  sold: 'https://schema.org/SoldOut',
+  made_to_order: 'https://schema.org/MadeToOrder',
+};
+
+const priceMatch = data.price.match(/^(\d+(?:[.,]\d+)?)\s*([A-Z]{3})?/);
+const priceAmount = priceMatch?.[1]?.replace(',', '.') ?? data.price;
+const priceCurrency = priceMatch?.[2] ?? 'RON';
+
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? '';
+
+const artworkJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'VisualArtwork',
+  name: title,
+  image: `${siteUrl}${data.images[0]}`,
+  description: desc,
+  artMedium: data.technique || 'Stained glass',
+  ...(data.dimensions ? { artworkSurface: data.dimensions } : {}),
+  creator: { '@type': 'Person', name: 'Gabriela' },
+  offers: {
+    '@type': 'Offer',
+    price: priceAmount,
+    priceCurrency,
+    availability: availabilityMap[data.status],
+    url: `${siteUrl}${localizePath(canonicalPath, lang)}`,
+  },
+};
+---
+<Base
+  lang={lang}
+  title={`${title} — Universe of Glass Studio`}
+  description={desc}
+  canonicalPath={canonicalPath}
+  ogType="product"
+  ogImage={data.images[0]}
+  jsonLd={artworkJsonLd}
+>
+  <Header lang={lang} currentPath={canonicalPath} />
+
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <a
+      href={`${localizePath('/', lang)}#gallery`}
+      class="text-xs uppercase tracking-widest text-warmCream/60 hover:text-glassGreen transition-colors inline-block mb-8"
+    >← {ui.backToGallery}</a>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+      <div>
+        <ImageCarousel images={data.images} alt={title} />
+      </div>
+
+      <div class="space-y-6">
+        <span class={`inline-block px-3 py-1 text-xs uppercase tracking-widest font-semibold rounded-full ${statusBadgeClass}`}>
+          {statusLabel}
+        </span>
+
+        <h1 class="serif-font text-3xl md:text-4xl text-warmCream">{title}</h1>
+        <p class="text-xl font-medium text-glassGreen">{data.price}</p>
+
+        {(data.dimensions || data.technique) && (
+          <div class="space-y-1 text-xs text-warmCream/70 uppercase tracking-widest">
+            {data.dimensions && <p><span class="text-glassGreen">{ui.dimensionsLabel}:</span> {data.dimensions}</p>}
+            {data.technique && <p><span class="text-glassGreen">{ui.techniqueLabel}:</span> {data.technique}</p>}
+          </div>
+        )}
+
+        {data.tags.length > 0 && (
+          <div class="flex flex-wrap gap-2">
+            {data.tags.map(tag => (
+              <span class="text-[10px] uppercase tracking-widest text-warmCream/50 border border-eleganceGrey px-2 py-1">{tag}</span>
+            ))}
+          </div>
+        )}
+
+        <div class="h-[1px] w-full bg-warmCream/10"></div>
+
+        <p class="text-sm font-light text-warmCream/80 leading-relaxed">{desc}</p>
+
+        <a
+          href="https://www.instagram.com/universeofglass/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="block w-full text-center bg-glassGreen text-baseDark font-semibold uppercase tracking-wider text-xs py-4 hover:bg-transparent hover:text-glassGreen border border-glassGreen transition-colors"
+        >{ui.askPiece}</a>
+      </div>
+    </div>
+  </main>
+</Base>
