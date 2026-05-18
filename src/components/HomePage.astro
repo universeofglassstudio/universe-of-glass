@@ -1,0 +1,123 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Header from './Header.astro';
+import GalleryCard from './GalleryCard.astro';
+import { t, type Lang } from '../i18n/translations';
+
+export interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const ui = t[lang];
+
+const artworks = await getCollection('artworks', a => a.data.show);
+
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? '';
+
+const orgJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  '@id': siteUrl,
+  name: 'Universe of Glass Studio',
+  description: ui.siteDescription,
+  url: siteUrl,
+  image: `${siteUrl}/images/a6300214.jpg`,
+  sameAs: [
+    'https://www.instagram.com/universeofglass/',
+    'https://www.tiktok.com/@universeofglassstudio',
+    'https://www.youtube.com/@universeofglass',
+  ],
+};
+---
+<Base
+  lang={lang}
+  title={`${ui.heroTitle} — ${lang === 'en' ? 'Stained Glass Art' : 'Artă în Vitraliu'}`}
+  description={ui.siteDescription}
+  canonicalPath="/"
+  ogType="website"
+  jsonLd={orgJsonLd}
+>
+  <Header lang={lang} currentPath="/" />
+
+  <section
+    id="home"
+    class="relative min-h-[70vh] flex items-center justify-center bg-cover bg-center px-4"
+    style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1547891654-e66ed7edd96c?auto=format&fit=crop&q=80&w=1200');"
+  >
+    <div class="text-center max-w-3xl mx-auto space-y-6">
+      <h1 class="serif-font text-4xl md:text-6xl lg:text-7xl font-light tracking-wide text-warmCream">{ui.heroTitle}</h1>
+      <h2 class="serif-font text-xl md:text-2xl italic text-glassGreen tracking-widest">{ui.heroSubtitle}</h2>
+      <p class="text-sm md:text-base font-light max-w-xl mx-auto leading-relaxed text-warmCream/90">{ui.heroDesc}</p>
+      <div class="pt-4 flex flex-col items-center">
+        <span class="text-[10px] uppercase tracking-[0.2em] text-glassGreen mb-2 font-medium">{ui.orderLabel}</span>
+        <a
+          href="https://www.instagram.com/universeofglass/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-block bg-glassGreen text-baseDark font-semibold uppercase tracking-wider text-xs px-8 py-4 border border-glassGreen hover:bg-transparent hover:text-glassGreen transition-all duration-300 transform hover:-translate-y-0.5"
+        >{ui.btnHero}</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full">
+    <div class="text-center mb-16">
+      <h2 class="serif-font text-3xl md:text-4xl uppercase tracking-widest text-warmCream">{ui.galleryTitle}</h2>
+      <div class="h-[1px] w-12 bg-glassGreen mx-auto mt-4"></div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+      {artworks.map(art => <GalleryCard artwork={art} lang={lang} />)}
+    </div>
+  </section>
+
+  <section id="commissions" class="bg-eleganceGrey/30 border-y border-eleganceGrey/50 py-20 px-4">
+    <div class="max-w-3xl mx-auto text-center space-y-6">
+      <h2 class="serif-font text-3xl md:text-4xl text-warmCream">{ui.commissionsTitle}</h2>
+      <p class="text-sm md:text-base font-light leading-relaxed text-warmCream/80">{ui.commissionsBody}</p>
+      <div class="pt-4">
+        <a
+          href="https://www.instagram.com/universeofglass/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-block border border-glassGreen text-glassGreen hover:bg-glassGreen hover:text-baseDark font-semibold uppercase tracking-wider text-xs px-8 py-4 transition-all duration-300"
+        >{ui.commissionsBtn}</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+    <div class="aspect-[4/5] bg-eleganceGrey overflow-hidden order-2 md:order-1">
+      <img
+        src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&q=80&w=800"
+        alt="Studio Artist"
+        class="w-full h-full object-cover opacity-80"
+        loading="lazy"
+      />
+    </div>
+    <div class="space-y-6 order-1 md:order-2">
+      <h2 class="serif-font text-3xl md:text-4xl text-glassGreen">{ui.aboutTitle}</h2>
+      <div class="h-[1px] w-12 bg-warmCream/30"></div>
+      <p class="text-sm md:text-base font-light leading-relaxed text-warmCream/90">{ui.aboutBody}</p>
+    </div>
+  </section>
+
+  <section id="contact" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-eleganceGrey w-full text-center space-y-8">
+    <div class="space-y-2">
+      <h3 class="serif-font text-2xl">{ui.contactTitle}</h3>
+      <p class="text-xs uppercase tracking-widest text-warmCream/50">{ui.contactSubtitle}</p>
+    </div>
+    <div class="flex flex-wrap justify-center items-center gap-6 text-sm font-medium tracking-wider">
+      <a href="https://www.instagram.com/universeofglass/" target="_blank" rel="noopener noreferrer" class="text-glassGreen hover:underline">Instagram</a>
+      <a href="https://www.tiktok.com/@universeofglassstudio" target="_blank" rel="noopener noreferrer" class="hover:text-glassGreen transition-colors">TikTok</a>
+      <a href="https://www.youtube.com/@universeofglass" target="_blank" rel="noopener noreferrer" class="hover:text-glassGreen transition-colors">YouTube</a>
+      <a href="https://linktr.ee/universeofglassstudio" target="_blank" rel="noopener noreferrer" class="hover:text-glassGreen transition-colors">Linktree</a>
+      <a href="mailto:universeofglassstudio@gmail.com" class="hover:text-glassGreen transition-colors">Email</a>
+    </div>
+  </section>
+
+  <footer class="bg-baseDark py-6 text-center text-xs text-warmCream/40 border-t border-eleganceGrey/30">
+    <p>{ui.footerCopyright}</p>
+  </footer>
+</Base>
