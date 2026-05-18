@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { ViewTransitions } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
 import type { Lang } from '../i18n/translations';
 
 export interface Props {
@@ -62,7 +62,7 @@ const fullOgImage = ogImage ? `${siteUrl}${ogImage}` : `${siteUrl}/images/a63002
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   )}
 
-  <ViewTransitions />
+  <ClientRouter />
 </head>
 <body class="bg-baseDark text-warmCream min-h-screen flex flex-col justify-between">
   <slot />
