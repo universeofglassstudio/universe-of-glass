@@ -1,0 +1,93 @@
+---
+export interface Props {
+  images: string[];
+  alt: string;
+}
+
+const { images, alt } = Astro.props;
+const hasMultiple = images.length > 1;
+---
+<div class="carousel" data-carousel data-total={images.length}>
+  <div class="relative bg-baseDark aspect-square w-full overflow-hidden">
+    <img data-hero src={images[0]} alt={alt} class="w-full h-full object-contain" />
+
+    {hasMultiple && (
+      <>
+        <button
+          type="button"
+          data-prev
+          aria-label="Previous image"
+          class="absolute left-0 top-0 bottom-0 w-12 flex items-center justify-center bg-gradient-to-r from-black/50 to-transparent hover:from-black/70 transition-colors text-warmCream text-2xl"
+        >‹</button>
+        <button
+          type="button"
+          data-next
+          aria-label="Next image"
+          class="absolute right-0 top-0 bottom-0 w-12 flex items-center justify-center bg-gradient-to-l from-black/50 to-transparent hover:from-black/70 transition-colors text-warmCream text-2xl"
+        >›</button>
+        <div data-counter class="absolute bottom-2 right-3 text-xs text-warmCream/60 bg-black/40 px-2 py-0.5 rounded">
+          1 / {images.length}
+        </div>
+      </>
+    )}
+  </div>
+
+  {hasMultiple && (
+    <div class="flex gap-2 mt-2">
+      {images.map((src, i) => (
+        <button
+          type="button"
+          data-thumb
+          data-index={i}
+          aria-label={`Show image ${i + 1}`}
+          class:list={[
+            'w-10 h-10 flex-shrink-0 overflow-hidden border transition-colors',
+            i === 0 ? 'border-glassGreen' : 'border-eleganceGrey/40 hover:border-warmCream/40'
+          ]}
+        >
+          <img src={src} alt="" class="w-full h-full object-cover" />
+        </button>
+      ))}
+    </div>
+  )}
+</div>
+
+<script>
+  function initCarousel(root: HTMLElement) {
+    const total = parseInt(root.dataset.total ?? '1', 10);
+    if (total <= 1) return;
+
+    const hero = root.querySelector<HTMLImageElement>('[data-hero]');
+    const counter = root.querySelector<HTMLElement>('[data-counter]');
+    const thumbs = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-thumb]'));
+    const sources = thumbs.map(t => t.querySelector('img')?.src ?? '');
+
+    let index = 0;
+
+    function show(i: number) {
+      index = (i + total) % total;
+      if (hero && sources[index]) hero.src = sources[index];
+      if (counter) counter.textContent = `${index + 1} / ${total}`;
+      thumbs.forEach((t, ti) => {
+        t.classList.toggle('border-glassGreen', ti === index);
+        t.classList.toggle('border-eleganceGrey/40', ti !== index);
+      });
+    }
+
+    root.querySelector('[data-prev]')?.addEventListener('click', () => show(index - 1));
+    root.querySelector('[data-next]')?.addEventListener('click', () => show(index + 1));
+    thumbs.forEach((t, ti) => t.addEventListener('click', () => show(ti)));
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') show(index - 1);
+      if (e.key === 'ArrowRight') show(index + 1);
+    });
+  }
+
+  function initAll() {
+    document.querySelectorAll<HTMLElement>('[data-carousel]').forEach(initCarousel);
+  }
+
+  initAll();
+  document.addEventListener('astro:page-load', initAll);
+</script>
