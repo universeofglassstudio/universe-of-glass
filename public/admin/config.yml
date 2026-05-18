@@ -41,7 +41,7 @@ collections:
     files:
       - name: "homepage"
         label: "Homepage & Contact Info"
-        file: "src/content/settings/homepage.json"
+        file: "src/data/settings/homepage.json"
         fields:
           - { label: "Hero Title", name: "hero_title", widget: "string" }
           - { label: "Hero Image", name: "hero_img", widget: "image" }
