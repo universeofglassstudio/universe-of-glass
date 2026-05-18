@@ -1,0 +1,83 @@
+---
+import '../styles/global.css';
+import { ViewTransitions } from 'astro:transitions';
+import type { Lang } from '../i18n/translations';
+
+export interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  ogImage?: string;
+  ogType?: 'website' | 'product' | 'article';
+  canonicalPath: string;  // path without locale prefix, e.g. "/gallery/monstera-leaf"
+  jsonLd?: object;
+}
+
+const {
+  lang,
+  title,
+  description,
+  ogImage,
+  ogType = 'website',
+  canonicalPath,
+  jsonLd,
+} = Astro.props;
+
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? '';
+
+const enUrl = `${siteUrl}${canonicalPath}`;
+const roUrl = `${siteUrl}/ro${canonicalPath === '/' ? '/' : canonicalPath}`;
+const currentUrl = lang === 'en' ? enUrl : roUrl;
+const fullOgImage = ogImage ? `${siteUrl}${ogImage}` : `${siteUrl}/images/a6300214.jpg`;
+---
+<!DOCTYPE html>
+<html lang={lang}>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+
+  <link rel="canonical" href={currentUrl} />
+  <link rel="alternate" hreflang="en" href={enUrl} />
+  <link rel="alternate" hreflang="ro" href={roUrl} />
+  <link rel="alternate" hreflang="x-default" href={enUrl} />
+
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={currentUrl} />
+  <meta property="og:image" content={fullOgImage} />
+  <meta property="og:type" content={ogType} />
+  <meta property="og:site_name" content="Universe of Glass Studio" />
+  <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'ro_RO'} />
+  <meta property="og:locale:alternate" content={lang === 'en' ? 'ro_RO' : 'en_US'} />
+
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  {jsonLd && (
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  )}
+
+  <ViewTransitions />
+</head>
+<body class="bg-baseDark text-warmCream min-h-screen flex flex-col justify-between">
+  <slot />
+
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" is:inline></script>
+  <script is:inline>
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on('init', user => {
+        if (!user) {
+          window.netlifyIdentity.on('login', () => {
+            document.location.href = '/admin/';
+          });
+        }
+      });
+    }
+  </script>
+</body>
+</html>
