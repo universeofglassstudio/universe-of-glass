@@ -8,7 +8,7 @@ images:
   - /images/a6300199.jpg
   - /images/a6300173.jpg
 dimensions: 21 x 20
-technique: "Tiffnany "
+technique: "Tiffany "
 tags:
   - botanical
   - monstera
