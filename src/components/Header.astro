@@ -1,0 +1,44 @@
+---
+import { t, type Lang, localizePath } from '../i18n/translations';
+
+export interface Props {
+  lang: Lang;
+  /** Path on the current page (without locale prefix), used to build EN/RO switcher links. */
+  currentPath: string;
+}
+
+const { lang, currentPath } = Astro.props;
+const ui = t[lang];
+
+const enHref = localizePath(currentPath, 'en');
+const roHref = localizePath(currentPath, 'ro');
+const homeHref = localizePath('/', lang);
+
+const navLinks = [
+  { href: `${homeHref}#home`, label: ui.navHome },
+  { href: `${homeHref}#gallery`, label: ui.navGallery },
+  { href: `${homeHref}#commissions`, label: ui.navCommissions },
+  { href: `${homeHref}#about`, label: ui.navAbout },
+  { href: `${homeHref}#contact`, label: ui.navContact },
+];
+---
+<header class="sticky top-0 z-40 bg-baseDark/80 backdrop-blur-md border-b border-eleganceGrey transition-all">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+    <a href={homeHref} class="serif-font text-xl md:text-2xl font-bold tracking-wide text-warmCream">
+      Universe of Glass Studio
+    </a>
+
+    <nav class="hidden md:flex space-x-8 text-sm uppercase tracking-wider font-medium">
+      {navLinks.map(link => (
+        <a href={link.href} class="hover:text-glassGreen transition-colors">{link.label}</a>
+      ))}
+    </nav>
+
+    <div class="flex items-center space-x-4 text-sm font-medium">
+      <a href={roHref} class={lang === 'ro' ? 'text-glassGreen font-bold' : 'text-warmCream/60 hover:text-warmCream transition-colors'}>RO</a>
+      <span class="text-eleganceGrey">|</span>
+      <a href={enHref} class={lang === 'en' ? 'text-glassGreen font-bold' : 'text-warmCream/60 hover:text-warmCream transition-colors'}>EN</a>
+      <a href="/admin/" class="opacity-10 hover:opacity-100 text-xs ml-2 text-eleganceGrey" title="Admin">🔑</a>
+    </div>
+  </div>
+</header>
