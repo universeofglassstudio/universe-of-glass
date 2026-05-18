@@ -54,6 +54,9 @@ const hasMultiple = images.length > 1;
 
 <script>
   function initCarousel(root: HTMLElement) {
+    if (root.dataset.bound) return;
+    root.dataset.bound = '1';
+
     const total = parseInt(root.dataset.total ?? '1', 10);
     if (total <= 1) return;
 
