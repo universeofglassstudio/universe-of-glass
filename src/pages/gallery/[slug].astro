@@ -1,0 +1,12 @@
+---
+import { getCollection } from 'astro:content';
+import ArtworkPage from '../../components/ArtworkPage.astro';
+
+export async function getStaticPaths() {
+  const artworks = await getCollection('artworks', a => a.data.show);
+  return artworks.map(a => ({ params: { slug: a.slug }, props: { artwork: a } }));
+}
+
+const { artwork } = Astro.props;
+---
+<ArtworkPage lang="en" artwork={artwork} />
