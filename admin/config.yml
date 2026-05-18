@@ -3,7 +3,6 @@ backend:
   branch: main # Ensure this matches your GitHub/GitLab branch name
 
 media_folder: "images" # Where images will be saved
-public_folder: "/images" # Where the website looks for them
 public_folder: "images" # Where the website looks for them
 
 collections:
