@@ -1,0 +1,41 @@
+backend:
+  name: git-gateway
+  branch: main # Ensure this matches your GitHub/GitLab branch name
+
+media_folder: "images" # Where images will be saved
+public_folder: "/images" # Where the website looks for them
+
+collections:
+  - name: "artworks"
+    label: "Stained Glass Products"
+    folder: "content/artworks"
+    create: true
+    slug: "{{title_en}}"
+    fields:
+      - { label: "Title (EN)", name: "title_en", widget: "string" }
+      - { label: "Titlu (RO)", name: "title_ro", widget: "string" }
+      - { label: "Price", name: "price", widget: "string", default: "0 RON" }
+      - { label: "Status", name: "status", widget: "select", options: ["available", "sold", "made_to_order"] }
+      - { label: "Product Image", name: "img", widget: "image" }
+      - { label: "Description (EN)", name: "desc_en", widget: "text" }
+      - { label: "Description (RO)", name: "desc_ro", widget: "text" }
+      - { label: "Show in Gallery", name: "show", widget: "boolean", default: true }
+
+  - name: "settings"
+    label: "Website Content"
+    delete: false # Prevent accidental deletion of site settings
+    editor:
+      preview: false
+    files:
+      - name: "homepage"
+        label: "Homepage & Contact Info"
+        file: "content/settings/homepage.json"
+        fields:
+          - { label: "Hero Title", name: "hero_title", widget: "string" }
+          - { label: "Hero Image", name: "hero_img", widget: "image" }
+          - { label: "About Section Text (EN)", name: "about_en", widget: "markdown" }
+          - { label: "About Section Text (RO)", name: "about_ro", widget: "markdown" }
+          - { label: "Instagram URL", name: "instagram", widget: "string" }
+          - { label: "TikTok URL", name: "tiktok", widget: "string" }
+          - { label: "YouTube URL", name: "youtube", widget: "string" }
+          - { label: "Email", name: "email", widget: "string" }
