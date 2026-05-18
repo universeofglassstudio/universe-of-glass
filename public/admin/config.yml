@@ -1,35 +1,47 @@
 backend:
   name: git-gateway
-  branch: main # Ensure this matches your GitHub/GitLab branch name
+  branch: main
 
-media_folder: "images" # Where images will be saved
-public_folder: "images" # Where the website looks for them
+media_folder: "public/images"
+public_folder: "/images"
 
 collections:
   - name: "artworks"
     label: "Stained Glass Products"
-    folder: "content/artworks"
+    folder: "src/content/artworks"
     create: true
-    slug: "{{title_en}}"
+    slug: "{{slug title_en}}"
     fields:
       - { label: "Title (EN)", name: "title_en", widget: "string" }
       - { label: "Titlu (RO)", name: "title_ro", widget: "string" }
-      - { label: "Price", name: "price", widget: "string", default: "0 RON" }
+      - { label: "Price", name: "price", widget: "string", default: "0 RON", hint: "e.g. 600 RON" }
       - { label: "Status", name: "status", widget: "select", options: ["available", "sold", "made_to_order"] }
-      - { label: "Product Image", name: "img", widget: "image" }
+      - label: "Images"
+        name: "images"
+        widget: "list"
+        field: { label: "Image", name: "image", widget: "image" }
+        min: 1
+      - { label: "Dimensions", name: "dimensions", widget: "string", required: false, hint: "e.g. 30 × 40 cm" }
+      - { label: "Technique", name: "technique", widget: "string", required: false, hint: "e.g. Tiffany copper foil" }
+      - label: "Tags"
+        name: "tags"
+        widget: "list"
+        default: []
+        required: false
+        field: { label: "Tag", name: "tag", widget: "string" }
       - { label: "Description (EN)", name: "desc_en", widget: "text" }
       - { label: "Description (RO)", name: "desc_ro", widget: "text" }
       - { label: "Show in Gallery", name: "show", widget: "boolean", default: true }
 
   - name: "settings"
     label: "Website Content"
-    delete: false # Prevent accidental deletion of site settings
+    delete: false
     editor:
       preview: false
     files:
       - name: "homepage"
         label: "Homepage & Contact Info"
-        file: "content/settings/homepage.json"
+        file: "src/content/settings/homepage.json"
         fields:
           - { label: "Hero Title", name: "hero_title", widget: "string" }
           - { label: "Hero Image", name: "hero_img", widget: "image" }
