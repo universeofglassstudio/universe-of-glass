@@ -11,3 +11,9 @@ node_modules/
 # Env
 .env
 .env.production
+
+# Tina
+tina/__generated__/
+!tina/__generated__/_graphql.json
+!tina/__generated__/_schema.json
+!tina/__generated__/types.ts
