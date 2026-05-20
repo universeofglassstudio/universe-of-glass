@@ -2,8 +2,7 @@ import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 
-// TODO: update with real production domain before deploy
-const SITE = 'https://universeofglass.netlify.app';
+const SITE = 'https://universe-of-glass.onrender.com';
 
 export default defineConfig({
   site: SITE,
