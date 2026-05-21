@@ -169,7 +169,8 @@ export type Artwork = Node & Document & {
   __typename?: 'Artwork';
   title_en: Scalars['String']['output'];
   title_ro: Scalars['String']['output'];
-  price: Scalars['String']['output'];
+  price_en: Scalars['String']['output'];
+  price_ro: Scalars['String']['output'];
   status: Scalars['String']['output'];
   images: Array<Scalars['String']['output']>;
   dimensions?: Maybe<Scalars['String']['output']>;
@@ -205,7 +206,8 @@ export type BooleanFilter = {
 export type ArtworkFilter = {
   title_en?: InputMaybe<StringFilter>;
   title_ro?: InputMaybe<StringFilter>;
-  price?: InputMaybe<StringFilter>;
+  price_en?: InputMaybe<StringFilter>;
+  price_ro?: InputMaybe<StringFilter>;
   status?: InputMaybe<StringFilter>;
   images?: InputMaybe<ImageFilter>;
   dimensions?: InputMaybe<StringFilter>;
@@ -297,7 +299,8 @@ export type DocumentMutation = {
 export type ArtworkMutation = {
   title_en?: InputMaybe<Scalars['String']['input']>;
   title_ro?: InputMaybe<Scalars['String']['input']>;
-  price?: InputMaybe<Scalars['String']['input']>;
+  price_en?: InputMaybe<Scalars['String']['input']>;
+  price_ro?: InputMaybe<Scalars['String']['input']>;
   status?: InputMaybe<Scalars['String']['input']>;
   images?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   dimensions?: InputMaybe<Scalars['String']['input']>;
@@ -308,14 +311,14 @@ export type ArtworkMutation = {
   show?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
-export type ArtworkPartsFragment = { __typename: 'Artwork', title_en: string, title_ro: string, price: string, status: string, images: Array<string>, dimensions?: string | null, technique?: string | null, tags?: Array<string | null> | null, desc_en: string, desc_ro: string, show?: boolean | null };
+export type ArtworkPartsFragment = { __typename: 'Artwork', title_en: string, title_ro: string, price_en: string, price_ro: string, status: string, images: Array<string>, dimensions?: string | null, technique?: string | null, tags?: Array<string | null> | null, desc_en: string, desc_ro: string, show?: boolean | null };
 
 export type ArtworkQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
 }>;
 
 
-export type ArtworkQuery = { __typename?: 'Query', artwork: { __typename: 'Artwork', id: string, title_en: string, title_ro: string, price: string, status: string, images: Array<string>, dimensions?: string | null, technique?: string | null, tags?: Array<string | null> | null, desc_en: string, desc_ro: string, show?: boolean | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+export type ArtworkQuery = { __typename?: 'Query', artwork: { __typename: 'Artwork', id: string, title_en: string, title_ro: string, price_en: string, price_ro: string, status: string, images: Array<string>, dimensions?: string | null, technique?: string | null, tags?: Array<string | null> | null, desc_en: string, desc_ro: string, show?: boolean | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
 
 export type ArtworkConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -327,14 +330,15 @@ export type ArtworkConnectionQueryVariables = Exact<{
 }>;
 
 
-export type ArtworkConnectionQuery = { __typename?: 'Query', artworkConnection: { __typename?: 'ArtworkConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'ArtworkConnectionEdges', cursor: string, node?: { __typename: 'Artwork', id: string, title_en: string, title_ro: string, price: string, status: string, images: Array<string>, dimensions?: string | null, technique?: string | null, tags?: Array<string | null> | null, desc_en: string, desc_ro: string, show?: boolean | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+export type ArtworkConnectionQuery = { __typename?: 'Query', artworkConnection: { __typename?: 'ArtworkConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'ArtworkConnectionEdges', cursor: string, node?: { __typename: 'Artwork', id: string, title_en: string, title_ro: string, price_en: string, price_ro: string, status: string, images: Array<string>, dimensions?: string | null, technique?: string | null, tags?: Array<string | null> | null, desc_en: string, desc_ro: string, show?: boolean | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
 
 export const ArtworkPartsFragmentDoc = gql`
     fragment ArtworkParts on Artwork {
   __typename
   title_en
   title_ro
-  price
+  price_en
+  price_ro
   status
   images
   dimensions
@@ -458,7 +462,7 @@ export const ExperimentalGetTinaClient = () =>
   getSdk(
     generateRequester(
       createClient({
-        url: "http://localhost:4321/graphql",
+        url: "https://content.tinajs.io/2.4/content/7ae48c93-b806-4a15-93d7-717a995fd2aa/github/main",
         queries,
       })
     )
