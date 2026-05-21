@@ -5,7 +5,8 @@ const artworks = defineCollection({
   schema: z.object({
     title_en: z.string(),
     title_ro: z.string(),
-    price: z.string(),
+    price_en: z.string(),
+    price_ro: z.string(),
     status: z.enum(['available', 'sold', 'made_to_order']),
     images: z.array(z.string()).min(1),
     dimensions: z.string().optional(),

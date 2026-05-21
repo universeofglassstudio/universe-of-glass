@@ -41,7 +41,8 @@ export default defineConfig({
         fields: [
           { type: 'string',  name: 'title_en', label: 'Title (EN)', isTitle: true, required: true },
           { type: 'string',  name: 'title_ro', label: 'Titlu (RO)', required: true },
-          { type: 'string',  name: 'price',    label: 'Price',      required: true },
+          { type: 'string', name: 'price_en', label: 'Price (EN)', required: true },
+          { type: 'string', name: 'price_ro', label: 'Price (RO)', required: true },
           {
             type: 'string', name: 'status', label: 'Status', required: true,
             options: [

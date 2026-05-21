@@ -16,6 +16,7 @@ const data = artwork.data;
 
 const title = lang === 'en' ? data.title_en : data.title_ro;
 const desc = lang === 'en' ? data.desc_en : data.desc_ro;
+const price = lang === 'en' ? data.price_en : data.price_ro;
 const statusLabel = ui[data.status];
 const canonicalPath = `/gallery/${artwork.slug}`;
 
@@ -29,9 +30,9 @@ const availabilityMap = {
   made_to_order: 'https://schema.org/MadeToOrder',
 };
 
-const priceMatch = data.price.match(/^(\d+(?:[.,]\d+)?)\s*([A-Z]{3})?/);
-const priceAmount = priceMatch?.[1]?.replace(',', '.') ?? data.price;
-const priceCurrency = priceMatch?.[2] ?? 'RON';
+const priceMatch = price.match(/^(\d+(?:[.,]\d+)?)\s*([A-Z]{3})?/);
+const priceAmount = priceMatch?.[1]?.replace(',', '.') ?? price;
+const priceCurrency = priceMatch?.[2] ?? (lang === 'en' ? 'EUR' : 'RON');
 
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? '';
 
@@ -81,7 +82,7 @@ const artworkJsonLd = {
         </span>
 
         <h1 class="serif-font text-3xl md:text-4xl text-warmCream">{title}</h1>
-        <p class="text-xl font-medium text-glassGreen">{data.price}</p>
+        <p class="text-xl font-medium text-glassGreen">{price}</p>
 
         {(data.dimensions || data.technique) && (
           <div class="space-y-1 text-xs text-warmCream/70 uppercase tracking-widest">
