@@ -17,4 +17,4 @@ tina/__generated__/
 !tina/__generated__/_graphql.json
 !tina/__generated__/_schema.json
 !tina/__generated__/types.ts
-public/admin/
+# public/admin/ is the pre-built Tina admin shell — committed so Render doesn't have to run tinacms build (avoids OOM on free tier). Regenerate with `npm run build:admin` after any tina/config.ts change.
