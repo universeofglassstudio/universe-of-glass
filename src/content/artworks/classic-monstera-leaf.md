@@ -1,7 +1,8 @@
 ---
 title_en: Classic Monstera Leaf
 title_ro: Frunză de Monstera Clasică
-price: 550 RON
+price_en: 110 EUR
+price_ro: 550 RON
 status: made_to_order
 images:
   - /images/a6300240.jpg

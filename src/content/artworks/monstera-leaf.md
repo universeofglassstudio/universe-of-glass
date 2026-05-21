@@ -1,7 +1,8 @@
 ---
 title_en: Monstera Leaf
 title_ro: Frunză de Monstera
-price: 600 RON
+price_en: 120 EUR
+price_ro: 600 RON
 status: made_to_order
 images:
   - /images/a6300214.jpg
