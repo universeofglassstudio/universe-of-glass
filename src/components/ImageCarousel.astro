@@ -8,7 +8,7 @@ const { images, alt } = Astro.props;
 const hasMultiple = images.length > 1;
 ---
 <div class="carousel" data-carousel data-total={images.length}>
-  <div class="relative bg-baseDark aspect-square w-full overflow-hidden">
+  <div class="relative bg-baseDark aspect-[4/3] w-full overflow-hidden">
     <img data-hero src={images[0]} alt={alt} class="w-full h-full object-contain" />
 
     {hasMultiple && (
