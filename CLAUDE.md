@@ -20,7 +20,7 @@ Open `http://localhost:4321/` for the site, `http://localhost:4321/admin` for th
 
 `tinacms build` calls Tina Cloud to verify the current branch is indexed there. If you're on a branch that hasn't been pushed yet (or your repo's Tina Cloud project doesn't know about it), the build fails with "Branch '<name>' is not on TinaCloud." Local-mode escape hatch: `npx tinacms build --local --skip-cloud-checks -c "astro build"` — uses a local GraphQL server and produces the same `dist/admin/` + `dist/` artifacts. Production builds on Render use cloud mode normally.
 
-## Content
+## Content 
 
 - Artworks: `src/content/artworks/*.md`, frontmatter validated by `src/content/config.ts`.
 - Images: `public/images/`. Frontmatter references them as `/images/<file>`.
