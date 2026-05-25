@@ -3,7 +3,7 @@ title_en: 3D Blue Icosahedron
 title_ro: Icosaedru 3D albastru
 price_en: 67 EUR
 price_ro: 350 RON
-status: available
+status: made_to_order
 images:
   - '/images/ChatGPT Image May 25, 2026, 04_04_34 PM.png'
   - '/images/ChatGPT%20Image%20May%2025,%202026,%2004_11_32%20PM.png'
