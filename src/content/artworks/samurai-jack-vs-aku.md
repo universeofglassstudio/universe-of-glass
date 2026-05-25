@@ -1,8 +1,8 @@
 ---
 title_en: Samurai Jack vs Aku
 title_ro: Samurai Jack vs Aku
-price_en: '220'
-price_ro: '1150'
+price_en: 220 EUR
+price_ro: 1150 RON
 status: made_to_order
 images:
   - /images/_SE_2336.JPG
