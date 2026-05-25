@@ -1,8 +1,8 @@
 ---
 title_en: Samurai Jack vs Aku ''Pocket'' Size
 title_ro: Samurai Jack vs Aku Varianta ''de Buzunar''
-price_en: '50 '
-price_ro: '250'
+price_en: 50 EUR
+price_ro: 250 RON
 status: made_to_order
 images:
   - /images/A7400021.jpg
