@@ -5,9 +5,9 @@ price_en: '50 '
 price_ro: '250'
 status: made_to_order
 images:
-  - /images/11.png
   - /images/A7400021.jpg
   - /images/A7400030.jpg
+  - /images/11.png
 dimensions: 10 x 10 cm
 technique: 'Tiffany Technique and Hand Painting '
 tags:
