@@ -1,8 +1,8 @@
 ---
 title_en: Marine Life Panel
 title_ro: Panou Viața marină
-price_en: '100'
-price_ro: '500'
+price_en: 100 EUR
+price_ro: 500 RON
 status: made_to_order
 images:
   - '/images/ChatGPT Image May 25, 2026, 03_32_07 PM.png'
