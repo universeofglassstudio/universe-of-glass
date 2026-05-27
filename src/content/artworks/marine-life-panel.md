@@ -5,7 +5,7 @@ price_en: 100 EUR
 price_ro: 500 RON
 status: available
 images:
-  - '/images/ChatGPT Image May 25, 2026, 03_32_07 PM.png'
+  - /images/zz.png
   - /images/IMG_20260508_153152-2.jpg
   - /images/IMG_20260508_154801-2.jpg
   - /images/IMG_20260508_124723.jpg
