@@ -8,9 +8,6 @@ images:
   - /images/_SE_2099.jpg
   - /images/t2.jpg
   - /images/t1.jpg
-  - ''
-  - ''
-  - ''
 dimensions: 8 X 8 cm
 technique: Tiffany Technique
 tags:
